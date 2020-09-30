@@ -3,23 +3,45 @@
 
 // Header
 .header {
-    background: linear-gradient(to top, rgba($color-primary-dark, 0.7), rgba($color-primary-dark, 0.7)), url(../assets/hero.jpg);
-    background-position: center;
-    background-size: cover;
-    min-height: 60vh;
+    // background: linear-gradient(to top, rgba($color-primary-dark, 0.6), rgba($color-primary-dark, 0.6)), url(../assets/hero.jpg);
+    // background-position: center;
+    // background-size: cover;
+    min-height: 85vh;
     position: relative;
     &__container {
         @include posAbs(50%, 50%);
-        color: $color-white;
+        color: $color-black;
         text-align: center;
+        &__icon {
+            color: $color-primary;
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+        span {
+            font-weight: 300;
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
         h1 {
             font-size: 2.5rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 3px;
         }
-        input {
-            width: 80%;
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            input {
+                border: 2px solid $color-primary;
+                width: 60%;
+            }
+            button {
+                margin-top: 20px;
+            }
         }
     }
 }
