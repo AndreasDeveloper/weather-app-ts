@@ -1,0 +1,25 @@
+@import '../base/mixins';
+@import '../base/variables';
+
+// Header
+.header {
+    background: linear-gradient(to top, rgba($color-primary-dark, 0.7), rgba($color-primary-dark, 0.7)), url(../assets/hero.jpg);
+    background-position: center;
+    background-size: cover;
+    min-height: 60vh;
+    position: relative;
+    &__container {
+        @include posAbs(50%, 50%);
+        color: $color-white;
+        text-align: center;
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        input {
+            width: 80%;
+        }
+    }
+}

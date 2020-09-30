@@ -1,0 +1,10 @@
+// Absolute positioning
+@mixin posAbs($valueTop, $valueLeft) {
+    @if type-of($valueTop) != number or type-of($valueLeft) != number {
+        @error 'Value for top property must be a number';
+    }
+    position: absolute;
+    top: $valueTop;
+    left: $valueLeft;
+    transform: translate(-$valueTop, -$valueLeft);
+}
