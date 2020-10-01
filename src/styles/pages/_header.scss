@@ -6,7 +6,7 @@
     // background: linear-gradient(to top, rgba($color-primary-dark, 0.6), rgba($color-primary-dark, 0.6)), url(../assets/hero.jpg);
     // background-position: center;
     // background-size: cover;
-    min-height: 85vh;
+    min-height: 80vh;
     position: relative;
     &__container {
         @include posAbs(50%, 50%);
@@ -37,7 +37,11 @@
             justify-content: center;
             input {
                 border: 2px solid $color-primary;
+                transition: all .2s ease-in-out;
                 width: 60%;
+                &:focus {
+                    width: 65%;
+                }
             }
             button {
                 margin-top: 20px;

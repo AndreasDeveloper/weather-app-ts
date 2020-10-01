@@ -1,14 +1,32 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    currentWeather: {}
   },
   mutations: {
+    SET_CURRENT(state, data) {
+      state.currentWeather = data;
+    }
   },
   actions: {
+    async getCurrentWeather({ commit }, query: string) {
+      try {
+        const resp = await axios({ url: `http://api.weatherapi.com/v1/current.json?key=715b8611732e4755ad1164722203009&q=${query}`, method: 'GET' });
+        if (resp.request.status !== 200) {
+          console.log('Error ocurred');
+          return;
+        }
+        commit('SET_CURRENT', resp.data);
+        return resp;
+      } catch (err) {
+        console.log(err);
+      }
+    }
   },
   modules: {
   }
