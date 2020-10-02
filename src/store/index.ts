@@ -26,6 +26,18 @@ export default new Vuex.Store({
       } catch (err) {
         console.log(err);
       }
+    },
+    async getSearchAutocomplete(obj, query: string) {
+      try {
+        const resp = await axios({ url: `http://api.weatherapi.com/v1/search.json?key=715b8611732e4755ad1164722203009&q=${query}`, method: 'GET' });
+        if (resp.request.status !== 200) {
+          console.log('Error ocurred');
+          return;
+        }
+        return resp;
+      } catch (err) {
+        console.log(err);
+      }
     }
   },
   modules: {

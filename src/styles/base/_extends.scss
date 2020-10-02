@@ -2,5 +2,17 @@
 %flexCol {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+}
+
+%flexRow {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
+}
+
+// Background image extend
+%bkImage {
+    background-position: center;
+    background-size: cover;
 }

@@ -10,13 +10,48 @@
 
 // Location Block
 .location-block {
-    background-color: $color-primary;
+    background-color: $color-white;
+    box-shadow: 0px 3px 5px rgba($color-black, 0.3);
     margin: 0 auto;
     height: 70vh;
     width: 70%;
+    @extend %flexRow;
     &__content {
+        @extend %bkImage;
         color: $color-white;
         padding: 40px;
+        width: 40%;
         @extend %flexCol;
+        justify-content: space-between;
+        &__weather-text {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            .icon {
+                font-size: 1.8rem;
+                margin-right: 10px;
+            }
+        }
+        &__temp {
+            span {
+                font-size: 1.1rem;
+                font-weight: 300;
+            }
+        }
+        &__phw {
+            margin-top: 0.8rem;
+            h4 {
+                font-weight: 400;
+                margin: 10px 0;
+            }
+        }
+        &__last-update {
+            font-weight: 300;
+            margin: 0;
+        }
+    }
+    &__data {
+        width: 60%;
     }
 }

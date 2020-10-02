@@ -6,7 +6,10 @@
       <h1>Search by city or town name</h1>
       <h2>covering cities all around the globe</h2>
       <form>
-        <input type="text" name="search" placeholder="Search cities and towns.." v-model="query" required>
+        <input type="text" name="search" placeholder="Search cities and towns.." v-model="query" @input="autocomplete" required>
+        <ul v-show="switchUl">
+          <li v-for="(location, index) in locations" :key="index" @click="getCurrentWeather">{{ location.name }}</li>
+        </ul>
         <button class="btn" type="submit" @click.prevent="getCurrentWeather" :disabled="searchState">{{ searchState ? 'searching..' : 'search' }}</button>
       </form>
     </div>
@@ -22,23 +25,44 @@ export default Vue.extend({
   data() {
     return {
       query: '',
-      searchState: false
+      searchState: false,
+      locations: [],
+      switchUl: false
     };
   },
   methods: {
+    ...mapActions([
+      'getSearchAutocomplete'
+    ]),
+
     async getCurrentWeather() {
       this.searchState = true;
       try {
         const formatQ = this.query.split(' ').join('%');
         const currentW = await this.$store.dispatch('getCurrentWeather', formatQ);
-        console.log(currentW)
+        console.log(currentW.data)
         this.$emit('passFetch', currentW);
         this.searchState = false;
+        this.switchUl = false;
       } catch (err) {
         console.log(err);
         this.searchState = false;
       }
     },
+    async autocomplete() {
+      try {
+        if (this.query === '') {
+          this.locations = [];
+        }
+        const formatQ = this.query.split(' ').join('%');
+        const dataLocs = await this.getSearchAutocomplete(formatQ);
+        this.switchUl = true;
+        this.locations = dataLocs.data;
+        console.log(this.locations)
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
 });
 </script>
