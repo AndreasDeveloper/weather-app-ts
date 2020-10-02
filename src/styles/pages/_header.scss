@@ -3,10 +3,7 @@
 
 // Header
 .header {
-    // background: linear-gradient(to top, rgba($color-primary-dark, 0.6), rgba($color-primary-dark, 0.6)), url(../assets/hero.jpg);
-    // background-position: center;
-    // background-size: cover;
-    min-height: 80vh;
+    min-height: 90vh;
     position: relative;
     &__container {
         @include posAbs(50%, 50%);
