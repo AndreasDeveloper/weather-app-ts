@@ -8,7 +8,7 @@
       <form>
         <input type="text" name="search" placeholder="Search cities and towns.." v-model="query" @input="autocomplete" autocomplete="off" required>
         <ul v-show="switchUl">
-          <li v-for="(location, index) in locations" :key="index" @click="query = location.name; getCurrentWeather(); getForecast();">{{ location.name }}</li>
+          <li v-for="(location, index) in locations" :key="index" @click="query = location.name.split(',')[0]; getCurrentWeather(); getForecast();">{{ location.name }}</li>
         </ul>
         <button class="btn" type="submit" @click.prevent="getCurrentWeather(); getForecast();" :disabled="searchState">{{ searchState ? 'searching..' : 'search' }}</button>
       </form>
@@ -39,7 +39,7 @@ export default Vue.extend({
     async getCurrentWeather() {
       this.searchState = true;
       try {
-        const formatQ = this.query.split(' ').join('%');
+        const formatQ = this.query.split(' ').join('%').toLowerCase();
         const currentW = await this.$store.dispatch('getCurrentWeather', formatQ);
         this.$emit('passFetch', currentW);
         this.searchState = false;
@@ -54,17 +54,18 @@ export default Vue.extend({
         if (this.query === '') {
           this.locations = [];
         }
-        const formatQ = this.query.split(' ').join('%');
+        const formatQ = this.query.split(',').join('%').toLowerCase();
         const dataLocs = await this.getSearchAutocomplete(formatQ);
         this.switchUl = true;
         this.locations = dataLocs.data;
+        console.log(this.locations)
       } catch (err) {
         console.log(err);
       }
     },
     async getForecast() {
       try {
-        const formatQ = this.query.split(' ').join('%');
+        const formatQ = this.query.split(' ').join('%').toLowerCase();
         const resp = await this.getForecastData(formatQ);
         this.$emit('passForecast', resp);
         console.log(resp);
