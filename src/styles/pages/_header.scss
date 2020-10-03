@@ -3,16 +3,15 @@
 
 // Header
 .header {
-    min-height: 90vh;
     position: relative;
     @media only screen and (max-width: 768px) {
-        height: 90vh;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
     &__container {
-        @include posAbs(50%, 50%);
+        // @include posAbs(50%, 50%);
         color: $color-black;
         text-align: center;
+        margin: 0 auto;
         @media only screen and (max-width: 768px) {
             width: 90%;
         }
