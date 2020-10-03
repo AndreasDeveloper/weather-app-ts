@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <Header @passFetch="forwardData" />
-    <LocationBlock :locationData="currentWeatherData" />
+    <Header @passFetch="forwardData" @passForecast="forwardForecast" />
+    <LocationBlock :locationData="currentWeatherData" :forecastData="forecastWeatherData" />
   </div>
 </template>
 
@@ -18,12 +18,16 @@ export default {
   },
   data() {
     return {
-      currentWeatherData: {}
+      currentWeatherData: {},
+      forecastWeatherData: {}
     };
   },
   methods: {
     forwardData(payload) {
       this.currentWeatherData = payload;
+    },
+    forwardForecast(payload) {
+      this.forecastWeatherData = payload;
     }
   }
 }
