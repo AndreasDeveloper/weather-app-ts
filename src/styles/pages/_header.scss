@@ -54,9 +54,9 @@
             input {
                 border: 2px solid $color-primary;
                 transition: all .2s ease-in-out;
-                width: 30%;
+                width: 60%;
                 &:focus {
-                    width: 35%;
+                    width: 65%;
                 }
                 @media only screen and (max-width: 768px) {
                     width: 80%;
