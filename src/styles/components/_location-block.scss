@@ -71,6 +71,7 @@
         &__content {
             @extend %flexCol;
             padding-bottom: 20px;
+            padding-right: 35px;
             h3 {
                 font-size: 1.2rem;
                 font-weight: 500;
