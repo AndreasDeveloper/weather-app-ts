@@ -20,7 +20,7 @@ export default new Vuex.Store({
   actions: {
     async getCurrentWeather({ commit }, query: string) {
       try {
-        const resp = await axios({ url: `http://api.weatherapi.com/v1/current.json?key=715b8611732e4755ad1164722203009&q=${query}`, method: 'GET' });
+        const resp = await axios({ url: `https://api.weatherapi.com/v1/current.json?key=715b8611732e4755ad1164722203009&q=${query}`, method: 'GET' });
         if (resp.request.status !== 200) {
           console.log('Error ocurred');
           return;
@@ -33,7 +33,7 @@ export default new Vuex.Store({
     },
     async getSearchAutocomplete(obj, query: string) {
       try {
-        const resp = await axios({ url: `http://api.weatherapi.com/v1/search.json?key=715b8611732e4755ad1164722203009&q=${query}`, method: 'GET' });
+        const resp = await axios({ url: `https://api.weatherapi.com/v1/search.json?key=715b8611732e4755ad1164722203009&q=${query}`, method: 'GET' });
         if (resp.request.status !== 200) {
           console.log('Error ocurred');
           return;
@@ -45,7 +45,7 @@ export default new Vuex.Store({
     },
     async getForecastData({ commit }, query: string) {
       try {
-        const resp = await axios({ url: `http://api.weatherapi.com/v1/forecast.json?key=715b8611732e4755ad1164722203009&q=${query}&days=3`, method: 'GET' });
+        const resp = await axios({ url: `https://api.weatherapi.com/v1/forecast.json?key=715b8611732e4755ad1164722203009&q=${query}&days=3`, method: 'GET' });
         if (resp.request.status !== 200) {
           console.log('Error ocurred');
           return;
