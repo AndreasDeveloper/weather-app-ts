@@ -16,3 +16,23 @@
     background-position: center;
     background-size: cover;
 }
+
+// Weather text
+%weatherText {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    .icon {
+        font-size: 1.8rem;
+        margin-right: 10px;
+    }
+}
+
+// Weather text weight
+%weatherTextWeight {
+    span {
+        font-size: 1.1rem;
+        font-weight: 400;
+    }
+}

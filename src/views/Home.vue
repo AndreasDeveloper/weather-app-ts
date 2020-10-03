@@ -12,6 +12,16 @@ import LocationBlock from '@/components/LocationBlock';
 
 export default {
   name: 'Home',
+  metaInfo: {
+      title: 'Type Weather',
+      meta: [
+      { name: 'description', content: 'Check the weather for all of the cities and towns across the globe.' },
+      { name: 'author', content: 'AndreasDEV' },
+      { name: "og:title", property: "og:title", content: "Type Weather" },
+      { name: "og:type", property: "og:type", content: "website" },
+      { name: "og:description", property: "og:description", content: "Check the weather for all of the cities and towns across the globe." },
+    ]
+  },
   components: {
     Header,
     LocationBlock

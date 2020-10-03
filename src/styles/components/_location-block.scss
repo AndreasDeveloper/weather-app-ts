@@ -6,6 +6,9 @@
     font-size: 2rem;
     text-align: center;
     margin-bottom: 20px;
+    @media only screen and (max-width: 768px) {
+        margin-bottom: 50px;
+    }
 }
 
 // Location Block
@@ -16,6 +19,10 @@
     height: 70vh;
     width: 70%;
     @extend %flexRow;
+    @media only screen and (max-width: 768px) {
+        flex-direction: column;
+        width: 100%;
+    }
     &__content {
         @extend %bkImage;
         color: $color-white;
@@ -23,21 +30,14 @@
         width: 40%;
         @extend %flexCol;
         justify-content: space-between;
+        @media only screen and (max-width: 768px) {
+            width: 100%;
+        }
         &__weather-text {
-            margin-top: 25px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            .icon {
-                font-size: 1.8rem;
-                margin-right: 10px;
-            }
+            @extend %weatherText;
         }
         &__temp {
-            span {
-                font-size: 1.1rem;
-                font-weight: 300;
-            }
+            @extend %weatherTextWeight;
         }
         &__phw {
             margin-top: 0.8rem;
@@ -52,6 +52,54 @@
         }
     }
     &__data {
+        padding: 40px;
         width: 60%;
+        @media only screen and (max-width: 768px) {
+            width: 100%;
+        }
+        &__heading {
+            border-bottom: 1px solid #111;
+            border-width: 3px;
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 4px;
+            width: fit-content;
+        }
+        &__content {
+            @extend %flexCol;
+            h3 {
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
+            &__weather-text {
+                @extend %weatherText;
+                font-size: 1.2rem;
+                margin-top: 10px;
+                h4 {
+                    @extend %weatherTextWeight;
+                }
+            }
+            &__temp {
+                @extend %weatherTextWeight;
+                span {
+                    font-size: 1rem;
+                }
+            }
+            &__hours {
+                @extend %flexRow;
+                margin-top: 25px;
+                justify-content: flex-start;
+                overflow-x: scroll;
+                &__weather {
+                    @extend %flexCol;
+                    border-right: 1px solid rgba(0, 0, 0, .1);
+                    margin: 10px 20px;
+                    text-align: center;
+                    & > * {
+                        width: 150px;
+                    }
+                }
+            }
+        }
     }
 }

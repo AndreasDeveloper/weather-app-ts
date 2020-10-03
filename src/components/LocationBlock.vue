@@ -24,7 +24,24 @@
                 <p class="location-block__content__last-update">Last updated {{ lastUpdtDate }}</p>
             </div>
             <div class="location-block__data">
-                {{ forecast }}
+                <h2 class="location-block__data__heading">Forecast Data</h2>
+                <div class="location-block__data__content">
+                    <h3>Tomorrow | {{ forecastTomorrow.date.split('-').join('.') }}.</h3>
+                    <div class="location-block__data__content__weather-text">
+                        <ion-icon class="icon" name="sunny-outline" v-if="icon === 'sun'"></ion-icon>
+                        <ion-icon class="icon" name="cloud-outline" v-if="icon === 'cloud'"></ion-icon>
+                        <ion-icon class="icon" name="rainy-outline" v-if="icon === 'rain'"></ion-icon>
+                        <h4>{{ forecastTomorrow.day.condition.text }} &dash; <span>Chance of rain</span> {{ forecastTomorrow.day.daily_chance_of_rain }}%</h4>
+                    </div>
+                    <h4 class="location-block__data__content__temp"><span>Min Temp:</span> {{ forecastTomorrow.day.mintemp_c }} &deg;C | <span>Max Temp:</span> {{ forecastTomorrow.day.maxtemp_c }} &deg;C</h4>
+                    <div class="location-block__data__content__hours">
+                        <div class="location-block__data__content__hours__weather" v-for="(weather, i) in forecastTomorrow.hour" :key="i">
+                            <span>{{ weather.time.split(' ')[1] }}</span>
+                            <span>{{ weather.condition.text }}</span>
+                            <span>{{ weather.temp_c }} &deg;C</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -77,7 +94,9 @@ export default Vue.extend({
         forecastData: {
             deep: true,
             handler(val) {
-                this.forecast = val.data;
+                this.forecast = val.data.forecast.forecastday;
+                this.forecastTomorrow = val.data.forecast.forecastday[0];
+                console.log(this.forecast)
             }
         }
     },
@@ -85,6 +104,7 @@ export default Vue.extend({
         return {
             location: {},
             forecast: {},
+            forecastTomorrow: {},
             date: '',
             lastUpdtDate: '',
             time: '',

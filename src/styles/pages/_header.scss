@@ -5,10 +5,16 @@
 .header {
     min-height: 90vh;
     position: relative;
+    @media only screen and (max-width: 768px) {
+        min-height: 60vh;
+    }
     &__container {
         @include posAbs(50%, 50%);
         color: $color-black;
         text-align: center;
+        @media only screen and (max-height: 768px) {
+            width: 90%;
+        }
         &__icon {
             color: $color-primary;
             font-size: 3rem;
