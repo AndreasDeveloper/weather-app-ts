@@ -53,9 +53,9 @@
             input {
                 border: 2px solid $color-primary;
                 transition: all .2s ease-in-out;
-                width: 60%;
+                width: 30%;
                 &:focus {
-                    width: 65%;
+                    width: 35%;
                 }
             }
             button {
