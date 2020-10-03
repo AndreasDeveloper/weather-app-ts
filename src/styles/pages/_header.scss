@@ -6,13 +6,14 @@
     min-height: 90vh;
     position: relative;
     @media only screen and (max-width: 768px) {
-        min-height: 60vh;
+        height: 90vh;
+        margin-bottom: 10px;
     }
     &__container {
         @include posAbs(50%, 50%);
         color: $color-black;
         text-align: center;
-        @media only screen and (max-height: 768px) {
+        @media only screen and (max-width: 768px) {
             width: 90%;
         }
         &__icon {
@@ -56,6 +57,12 @@
                 width: 30%;
                 &:focus {
                     width: 35%;
+                }
+                @media only screen and (max-width: 768px) {
+                    width: 80%;
+                    &:focus {
+                        width: 85%;
+                    }
                 }
             }
             button {
