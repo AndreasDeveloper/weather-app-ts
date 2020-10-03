@@ -34,8 +34,10 @@
             justify-content: center;
             ul {
                 box-shadow: 0px 3px 5px rgba($color-black, 0.3);
+                max-height: 200px;
                 padding: 10px;
                 list-style: none;
+                overflow-y: scroll;
                 li {
                     cursor: pointer;
                     margin: 10px;
