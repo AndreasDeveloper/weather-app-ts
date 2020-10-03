@@ -6,11 +6,11 @@
       <h1>Search by city or town name</h1>
       <h2>covering cities all around the globe</h2>
       <form>
-        <input type="text" name="search" placeholder="Search cities and towns.." v-model="query" @input="autocomplete" required>
+        <input type="text" name="search" placeholder="Search cities and towns.." v-model="query" @input="autocomplete" autocomplete="off" required>
         <ul v-show="switchUl">
-          <li v-for="(location, index) in locations" :key="index" @click="getCurrentWeather">{{ location.name }}</li>
+          <li v-for="(location, index) in locations" :key="index" @click="query = location.name; getCurrentWeather(); getForecast();">{{ location.name }}</li>
         </ul>
-        <button class="btn" type="submit" @click.prevent="getCurrentWeather" :disabled="searchState">{{ searchState ? 'searching..' : 'search' }}</button>
+        <button class="btn" type="submit" @click.prevent="getCurrentWeather(); getForecast();" :disabled="searchState">{{ searchState ? 'searching..' : 'search' }}</button>
       </form>
     </div>
   </header>
@@ -32,7 +32,8 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions([
-      'getSearchAutocomplete'
+      'getSearchAutocomplete',
+      'getForecastData'
     ]),
 
     async getCurrentWeather() {
@@ -40,7 +41,6 @@ export default Vue.extend({
       try {
         const formatQ = this.query.split(' ').join('%');
         const currentW = await this.$store.dispatch('getCurrentWeather', formatQ);
-        console.log(currentW.data)
         this.$emit('passFetch', currentW);
         this.searchState = false;
         this.switchUl = false;
@@ -58,7 +58,16 @@ export default Vue.extend({
         const dataLocs = await this.getSearchAutocomplete(formatQ);
         this.switchUl = true;
         this.locations = dataLocs.data;
-        console.log(this.locations)
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getForecast() {
+      try {
+        const formatQ = this.query.split(' ').join('%');
+        const resp = await this.getForecastData(formatQ);
+        this.$emit('passForecast', resp);
+        console.log(resp);
       } catch (err) {
         console.log(err);
       }
