@@ -4,7 +4,7 @@
         <div class="location-block">
             <div class="location-block__content" :style="{ 'background-image': `linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), ${image}` }">
                 <div>
-                    <h2>{{ location.location.name }}</h2>
+                    <h2>{{ location.location.name }}, {{ location.location.region }}</h2>
                     <h3>{{ location.location.country }}</h3>
                     <span>{{ date }}. </span>
                     <span>{{ time }}</span>
@@ -24,6 +24,7 @@
                 <p class="location-block__content__last-update">Last updated {{ lastUpdtDate }}</p>
             </div>
             <div class="location-block__data">
+                {{ forecast }}
             </div>
         </div>
     </div>
@@ -46,11 +47,23 @@ interface LocationInterface {
         };
     };
 }
+// Interface for forecast data
+interface ForecastIntefrace {
+    data: {
+        forecast: {
+            forecastday: {
+                date: string;
+                day: object;
+            };
+        };
+    };
+}
 
 export default Vue.extend({
     name: 'LocationBlock',
     props: {
-        locationData: { type: Object as () => LocationInterface }
+        locationData: { type: Object as () => LocationInterface },
+        forecastData: { type: Object as () => ForecastIntefrace }
     },
     watch: {
         locationData: {
@@ -60,11 +73,18 @@ export default Vue.extend({
                 this.formatDate(val);
                 this.setImageIcon(val);
             }
+        },
+        forecastData: {
+            deep: true,
+            handler(val) {
+                this.forecast = val.data;
+            }
         }
     },
     data() {
         return {
             location: {},
+            forecast: {},
             date: '',
             lastUpdtDate: '',
             time: '',
@@ -85,7 +105,7 @@ export default Vue.extend({
         setImageIcon(val: LocationInterface) {
             const image = val.data.current.condition.text.toLowerCase().split(' ').join('');
             console.log(image)
-            if (image === 'partlycloudy') {
+            if (image === 'partlycloudy' || image === 'overcast') {
                 this.image = `url(${require(`@/assets/overcast.jpg`)})`;
                 this.icon = 'cloud';
             } else if (image === 'rain' || image === 'lightrain') {
