@@ -95,7 +95,7 @@ export default Vue.extend({
             deep: true,
             handler(val) {
                 this.forecast = val.data.forecast.forecastday;
-                this.forecastTomorrow = val.data.forecast.forecastday[0];
+                this.forecastTomorrow = val.data.forecast.forecastday[1];
                 console.log(this.forecast)
             }
         }
