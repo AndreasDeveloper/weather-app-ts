@@ -36,3 +36,11 @@
         font-weight: 400;
     }
 }
+
+// Heading border bottom
+%headingBorder {
+    display: flex;
+    margin-bottom: 20px;
+    padding-bottom: 4px;
+    width: fit-content;
+}

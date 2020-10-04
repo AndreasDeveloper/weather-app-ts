@@ -4,18 +4,23 @@
         <div class="location-block">
             <div class="location-block__content" :style="{ 'background-image': `linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), ${image}` }">
                 <div>
+                    <h3 class="location-block__content__today">Today</h3>
                     <h2>{{ location.location.name }}, {{ location.location.region }}</h2>
                     <h3>{{ location.location.country }}</h3>
                     <span>{{ date }}. </span>
                     <span>{{ time }}</span>
+                </div>
+                <div>
                     <div class="location-block__content__weather-text">
                         <ion-icon class="icon" name="sunny-outline" v-if="icon === 'sun'"></ion-icon>
                         <ion-icon class="icon" name="cloud-outline" v-if="icon === 'cloud'"></ion-icon>
                         <ion-icon class="icon" name="rainy-outline" v-if="icon === 'rain'"></ion-icon>
+                        <ion-icon class="icon" name="snow-outline"  v-if="icon === 'snow'"></ion-icon>
                         <h2>{{ location.current.condition.text }}</h2>
                     </div>
                     <h3 class="location-block__content__temp">{{ location.current.temp_c }} &deg;C <span>| Feels like</span> {{ location.current.feelslike_c }} &deg;C</h3>
                     <div class="location-block__content__phw">
+                        <h4>Chane of {{ chanceType }} {{ chancePercent }}%</h4>
                         <h4>Percipitation: {{ location.current.precip_mm }}%</h4>
                         <h4>Humidity: {{ location.current.humidity }}%</h4>
                         <h4>Wind: {{ location.current.wind_kph }} km/h</h4>
@@ -68,10 +73,13 @@ interface LocationInterface {
 interface ForecastIntefrace {
     data: {
         forecast: {
-            forecastday: {
+            forecastday: [{
                 date: string;
-                day: object;
-            };
+                day: {
+                    daily_chance_of_rain: string;
+                    daily_chance_of_snow: string;
+                };
+            }];
         };
     };
 }
@@ -96,6 +104,7 @@ export default Vue.extend({
             handler(val) {
                 this.forecast = val.data.forecast.forecastday;
                 this.forecastTomorrow = val.data.forecast.forecastday[1];
+                this.getChanceOf(val);
                 console.log(this.forecast)
             }
         }
@@ -109,7 +118,9 @@ export default Vue.extend({
             lastUpdtDate: '',
             time: '',
             image: '',
-            icon: ''
+            icon: '',
+            chanceType: '',
+            chancePercent: 0
         };
     },
     methods: {
@@ -134,6 +145,23 @@ export default Vue.extend({
             } else if (image === 'sunny' || image === 'clear') {
                 this.image = `url(${require(`@/assets/sunny.jpg`)})`;
                 this.icon = 'sun';
+            } else if (image === 'mist' || image === 'fog') {
+                this.image = `url(${require(`@/assets/fog.jpg`)})`;
+                this.icon = 'cloud';
+            } else if (image === 'lightsnow' || image === 'moderatesnow' || image === 'heavysnow') {
+                this.image = `url(${require(`@/assets/snow.jpg`)})`;
+                this.icon = 'snow';
+            }
+        },
+        getChanceOf(val: ForecastIntefrace) {
+            const chanceRain = Number(val.data.forecast.forecastday[0].day.daily_chance_of_rain);
+            const chanceSnow = Number(val.data.forecast.forecastday[0].day.daily_chance_of_snow);
+            if (chanceRain > chanceSnow) {
+                this.chanceType = 'rain';
+                this.chancePercent = chanceRain;
+            } else {
+                this.chanceType = 'snow';
+                this.chancePercent = chanceSnow;
             }
         },
     }

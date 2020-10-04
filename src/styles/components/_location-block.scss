@@ -16,7 +16,7 @@
     background-color: $color-white;
     box-shadow: 0px 3px 5px rgba($color-black, 0.3);
     margin: 0 auto;
-    height: 70vh;
+    height: 100vh;
     width: 70%;
     @extend %flexRow;
     @media only screen and (max-width: 768px) {
@@ -35,6 +35,11 @@
         @media only screen and (max-width: 768px) {
             width: 100%;
             padding: 20px;
+        }
+        &__today {
+            border-bottom: 1px solid $color-white;
+            border-width: 3px;
+            @extend %headingBorder;
         }
         &__weather-text {
             @extend %weatherText;
@@ -64,10 +69,7 @@
         &__heading {
             border-bottom: 1px solid #111;
             border-width: 3px;
-            display: flex;
-            margin-bottom: 20px;
-            padding-bottom: 4px;
-            width: fit-content;
+            @extend %headingBorder;
         }
         &__content {
             @extend %flexCol;
