@@ -6,9 +6,9 @@
       <h1>Search by city or town name</h1>
       <h2>covering cities all around the globe</h2>
       <form>
-        <input type="text" name="search" placeholder="Search cities and towns.." v-model="query" @input="autocomplete" autocomplete="on" required   :input="fillterLocations" >
-        <ul v-show="switchUl" >
-          <li v-for="(location, index) in locations" :key="index" :click="setLocation(fillterLocations)" @click="query = location.name.split(',')[0]; getCurrentWeather(); getForecast();">{{ location.name }}</li>
+        <input type="text" name="search" placeholder="Search cities and towns.." v-model="query" @input="autocomplete" autocomplete="off" required @save-option="saveResult">
+        <ul v-show="switchUl">
+          <li v-for="(location, index) in locations" :key="index" :locations="locations" @click="query = location.name.split(',')[0]; getCurrentWeather(); getForecast()">{{ location.name }}</li>
         </ul>
         <button class="btn" type="submit" @click.prevent="getCurrentWeather(); getForecast();" :disabled="searchState">{{ searchState ? 'searching..' : 'search' }}</button>
       </form>
@@ -31,15 +31,6 @@ export default Vue.extend({
     };
   },
   methods: {
-    fillterLocations() {
-      this.fillterLocations = this.locations.filter(query => { // Col: 7 Error
-        return query.toLowerCase().startsWith(this.query.toLowerCase()); // Col: 22 Error
-      });
-    },
-    setLocation(query) { // Col: 17 Error
-      this.query = query;
-    },
-
     ...mapActions([
       'getSearchAutocomplete',
       'getForecastData'
@@ -81,7 +72,11 @@ export default Vue.extend({
       } catch (err) {
         console.log(err);
       }
-    }
+    },
+    saveResult(query) {
+      this.locations = query;
+      console.log(this.locations);
+    } 
   }
 });
 </script>
